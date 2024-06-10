@@ -43,4 +43,4 @@ Demo images in anonymizer/input/demo/ are stock-photos from pexels.com.
 
 The tool was created as part of a master thesis in Computer Science at Linköping University.
 
-[Link to thesis](#) - RAD: Realistic Anonymization of Images using Stable Diffusion
+<!-- [Link to thesis](no-link-yet) - RAD: Realistic Anonymization of Images using Stable Diffusion -->
