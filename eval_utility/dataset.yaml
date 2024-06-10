@@ -1,0 +1,15 @@
+path: /dataset/datasets/cityscapes_unfiltered_groups_as_single # dataset root dir
+train: images/train # train images (relative to 'path') 118287 images
+val: images/val # val images (relative to 'path') 5000 images
+test: # 20288 of 40670 images, submit to https://competitions.codalab.org/competitions/20794
+
+# Classes
+names:
+  0: person
+  1: bicycle
+  2: car
+  3: motorcycle
+  4: bus
+  5: train
+  6: truck
+  7: traffic light

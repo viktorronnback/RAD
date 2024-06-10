@@ -1,0 +1,9 @@
+controlnet_aux==0.0.7
+deepface==0.0.84
+diffusers==0.26.3
+transformers==4.40.2
+matplotlib==3.8.3
+Pillow==10.2.0
+segment_anything==1.0
+ultralytics==8.1.23
+accelerate==0.27.2

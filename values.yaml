@@ -1,0 +1,178 @@
+labels:
+  ## Your Axis username to track the resources created by you.
+  owner: "simonmal"
+
+  ## Project name to group resources
+  project: "lkpg-thesis-1"
+
+## Additional labels
+customLabels: {}
+
+image:
+  repository: docker-sandbox.se.axis.com/slask/simonmal/realistic-anonymization
+  tag: 1
+
+  ## Image pull policy
+  ## Default value is 'Always' if the image tag is 'latest', else 'IfNotPresent'.
+  # pullPolicy: IfNotPresent
+  pullPolicy: Always
+
+## Force the container to be recreated each time the Helm chart is upgraded.
+forceRecreate: true
+
+## Times the job will restart the pod before it terminates the job.
+restartLimit: 1
+restartPolicy: OnFailure
+
+## The priority the training can have. Will move ahead in queue depending on which priority.
+## The priorities and their description can be found here: https://confluence.se.axis.com/x/VADUGw
+priorityClassName: training-low
+
+## Each job will run in separate containers.
+## More info about commands and arguments: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/
+jobs:
+  - command: [sh]
+    args: ["-c", "(echo && date && python eval_utility/utility_eval.py) 2>&1 | tee -a /dataset/log.txt"]
+    env:
+      - name: BATCH_SIZE
+        value: '6'
+        #value: '32'
+      - name: IMG_HEIGHT
+        value: '640'
+      - name: IMG_WIDTH
+        value: '1280'
+      - name: EPOCHS
+        value: '300'
+      - name: DROPOUT
+        value: '0'
+      - name: RESUME_PATH
+        value: 'None'
+      - name: MODEL_VERSION
+        value: '/dataset/yolov8m-seg.pt'
+      - name: PATIENCE
+        value: '25'
+      - name: PROJECT_PATH
+        value: '/dataset/training/'
+      - name: CONFIG_PATH
+        value: '/dataset/dataset.yaml'
+      - name: OVERLAP_MASK
+        value: 'False'
+      - name: MASK_RATIO
+        value: '4'
+    # envFrom:
+    #   ## More info: https://kubernetes.io/docs/concepts/configuration/secret/
+    #   - secretRef:
+    #       name: secrets
+
+gpu:
+  ## The GPU profile to request
+  ## For a list of profiles, see: https://confluence.se.axis.com/display/DAMA/MIG+Configuration
+  profile: nvidia.com/mig-2g.20gb
+  #profile: nvidia.com/gpu
+
+  ## Minimum amount of GPU instances of the profile specified in `gpu.profile`
+  ## required.
+  ##
+  ## Note: The job will not schedule if the number of requested instances
+  ## exceeds the number instances of the profile `gpu.profile` that exist
+  ## in any of the nodes. Instances in different nodes cannot be used together.
+  ## More info: https://confluence.se.axis.com/display/DAMA/MIG+Configuration
+  requests: 1
+
+  ## Maximum amount of GPU instances allowed.
+  ## The limit must be higher than the requested GPU instances.
+  limits: 1
+
+## Manage the resources the containers should have.
+## More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources:
+  ## Minimum amount of resources required.
+  requests:
+    ## One millicpu (m unit) is equal to 1/1000th of a virtual core.
+    cpu: "8000m"
+    memory: 32Gi
+    ## Amount of disk space available to the container. Ephemeral storage is storage locally
+    ## attached to the node and is very limited. Consider to mount a persistent volume if
+    ## you need a lot (> 5Gi) of storage.
+    ephemeral-storage: 5Gi
+  ## Maxmimum amount of resources allowed.
+  ## The limit must be higher than the requested resources.
+  limits:
+    ## One millicpu (m unit) is equal to 1/1000th of a virtual core.
+    cpu: "8000m"
+    memory: 32Gi
+    ## Maximum amount of disk space in the container allowed. Ephemeral storage is storage
+    ## locally attached to the node and is very limited. Consider to mount a persistent
+    ## volume if you need a lot (> 5Gi) of storage.
+    ephemeral-storage: 5Gi
+
+## Define your volumes
+##
+## Trident volumes: Create a persistent volume claim (PVC) to request a volume
+## from Trident. Use the Helm Chart `trident-pvc` to create a Trident PVC.
+##
+## Example PVC
+# volumes:
+#   - name: dataset
+#     persistentVolumeClaim:
+#       claimName: my-claim
+
+## Mount the volumes to the container at the given paths.
+# volumeMounts:
+#   - name: dataset
+#     mountPath: /dataset
+
+volumes:
+  - name: dataset
+    persistentVolumeClaim:
+      claimName: simonmal-lkpg-thesis-1-pvc-trident-pvc
+  - emptyDir:
+      medium: Memory
+      sizeLimit: 10Gi
+    name: dshm
+
+volumeMounts:
+  - name: dataset
+    mountPath: /dataset
+  - mountPath: /dev/shm
+    name: dshm
+
+## Enable debug mode to run a container with same settings as the jobs.
+##
+## The container is available for 1 hour by default (ttl). Please close the
+## container as soon as you are done with the debug session to release the
+## GPU instances to other jobs.
+##
+## NOTE:The jobs specified in `jobs` will not be scheduled.
+debug:
+  enable: false
+  ## Time to live: s for seconds, m for minutes, h for hours, d for days
+  # ttl: 1h
+  # env:
+  #   - name: debug
+  #     value: true
+  # envFrom:
+  #   ## More info: https://kubernetes.io/docs/concepts/configuration/secret/
+  #   - secretRef:
+  #       name: secrets
+
+## Short experiments are jobs that are expected to run under 1 hour. Jobs that
+## are marked as a short experiment have a higher chance of being scheduled
+## sooner if all nodes are busy. Short experiments are automatically terminated
+## if the run-time exceeds 1 hour.
+shortExperiment: false
+
+## Time in seconds until the jobs are automatically deleted after the job is
+## finished (completed or failed).
+ttlSecondsAfterFinished: 86400
+
+## Custom tolerations
+# tolerations:
+#   - key: your-key
+#     operator: Equal
+#     value: your-value
+#     effect: NoSchedule
+
+## Force the pod to schedule on a specific node.
+# nodeHostname: se-rg-xops-w-xxx
+

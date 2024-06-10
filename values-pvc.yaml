@@ -1,0 +1,22 @@
+labels:
+  ## Your Axis username to track the resources created by you.
+  owner: "simonmal"
+
+  ## Project name to group resources
+  project: "lkpg-thesis-1"
+
+## Additional labels
+customLabels: {}
+
+## The desired access modes the volume should have.
+## More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
+accessModes:
+  - ReadWriteMany
+
+## The volume size is measured in byte quantities. You can express storage as a plain integer
+## or as a fixed-point number using one of these suffixes: E, P, T, G, M, k. You can also use 
+## the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki. 
+##
+## The minimum volume size is 20Mi.
+volumeSize: 50Gi # 20 mebibytes = 20 * 2^20 bytes
+

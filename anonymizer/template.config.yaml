@@ -1,0 +1,89 @@
+# Anonymizer config file
+
+### General
+input: images # Folder of input files
+output: images # Folder of output files
+
+# Set to true if generated files should be overwritten by new generations (optional)
+# overwrite: false
+
+# Image format that anonymized image will be saved as (optional)
+# default - same format as input file
+# save_format: default
+
+
+### Diffusion settings
+strength: 0.8 # How much the generated image differs from the original image. More strength -> more anonymous (0-1)
+controlnet_conditioning_scale: 0.9 # How much controlnet influences diffusion (0-1, can go higher but may create artefacts)
+guidance_scale: 7.5 # CFG, how well generation conforms to text prompt (0-30)
+
+# Number of inference steps (0-inf, should usually be between 15-50)
+# More inference steps -> more detailed result (at the cost of longer generation times)
+inference_steps: 50
+
+# Prompts used in generation (use > in YAML for multiline string without linebreaks)
+prompt: RAW photo, people walking, 8k uhd, dslr, soft lighting, high quality
+negative_prompt: > 
+  (deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), 
+  text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, 
+  mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, 
+  blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, 
+  malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, 
+  long neck, UnrealisticDream
+
+# Manual seed (optional)
+# seed: -1
+
+
+### Controlnet settings
+# What controlnet model to use (canny / pose / both)
+controlnet: canny
+
+# Canny thresholds (optional)
+# Optimal ratio is 1:2 - 1:3 (min:max)
+# canny_min_threshold: 175
+# canny_max_threshold: 350
+
+# Canny edge only for silhouette (thresholds will have little effect) (optional)
+# canny_silhouette: false
+
+
+### Models
+# Diffusion/ControlNet models (works with local path, folders) (optional)
+# diffusion_model: SG161222/RealVisXL_V3.0 # Has to be model that supports image-to-image
+# refiner_model: stabilityai/stable-diffusion-xl-refiner-1.0 # Defaults to not use any refiner
+# controlnet_canny_model: diffusers/controlnet-canny-sdxl-1.0
+# controlnet_pose_model: thibaud/controlnet-openpose-sdxl-1.0
+
+# YOLO / SAM models (will be downloaded if not found at local path) (optional)
+# yolo_obj_det_model: models/yolov8x.pt
+# sam_seg_model: models/sam_vit_h_4b8939.pth
+
+
+### Optimization settings (change if running out of VRAM)
+# Max output width/height, larger images will be resized (with correct aspect ratio) (optional)
+# max_output_width: 1920
+# max_output_height: 1080
+
+# 0 - No offloading, 1 - light offloading (models), 2 - medium offloading (sub-models), 3 - most offloading (sub-models + VAE tiling) (optional)
+# https://huggingface.co/docs/diffusers/optimization/memory
+# cpu_offloading: 0
+
+# Can lead to faster runtimes after first compile (optional)
+# compile_unet: true
+
+# verbose: false
+
+# measure_time: false
+
+### Device settings
+
+# Device to run generation / segmentation on (optional)
+# default - checks available devices in order CUDA > MPS > CPU, [device] binds torch to specific device (ex. device: cuda)
+# device: default
+
+# Segmentation execution (optional)
+# Executed on same device as rest of code, unless specified
+# default - parallel segmentation, seq - sequential segmentation (slower),
+# [device] parallel execution on specific device (ex: segmentation: cuda)
+# segmentation: default
