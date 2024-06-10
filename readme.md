@@ -1,13 +1,13 @@
 # RAD - Realistic Anonymization using Diffusion
 RAD is a full-body realistic anonymization pipeline based on Stable Diffusion.
 
-![ezgif com-resize (12)](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/2f7a31fb-5058-4c4b-9a8d-43c984b48ea6)
-![ezgif com-resize (8)](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/db521588-acdf-45d6-9755-363f8ae6d119)
-![ezgif com-crop (1)](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/f689d8d9-a08a-439f-ac77-7415aa32029a)
-![ezgif com-resize (10)](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/169665ca-e4d3-4d06-bed8-ac6295c95160)
-![ezgif com-resize (11)](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/623b4df9-cda1-43cc-b2c5-72e4a4077ca5)
+![anonymization-1](./images/anonymization-1.gif)
+![anonymization-2](./images/anonymization-2.gif)
+![anonymization-3](./images/anonymization-3.gif)
+![anonymization-4](./images/anonymization-4.gif)
+![anonymization-5](./images/anonymization-5.gif)
 
-![text-pipe](https://github.com/viktorronnback/realistic-anonymization-test/assets/134917172/8c721ac9-68c8-45dd-aafc-c0921eb1676f)
+![pipeline](./images/pipeline.png)
 
 ## Installation
 
