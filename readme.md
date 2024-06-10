@@ -15,7 +15,7 @@ RAD is a full-body realistic anonymization pipeline based on Stable Diffusion.
 
 2. Clone repository:
 ```bash
-git clone git@github.com:viktorronnback/realistic-anonymization-test.git realistic-anonymization
+git clone git@github.com:viktorronnback/RAD.git realistic-anonymization
 ```
 
 3. Go to the root directory of the repository:
