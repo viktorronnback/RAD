@@ -1,5 +1,5 @@
 # RAD - Realistic Anonymization using Diffusion
-RAD is a full-body realistic anonymization pipeline based on Stable Diffusion.
+RAD is a full-body realistic anonymization pipeline based on Stable Diffusion. Below are a few anonymization examples displayed as GIFs, and a visualization of RAD's architecture. We refer to the published thesis for more examples and details about the pipeline.
 
 ![anonymization-1](./images/anonymization-1.gif)
 ![anonymization-2](./images/anonymization-2.gif)
@@ -9,38 +9,57 @@ RAD is a full-body realistic anonymization pipeline based on Stable Diffusion.
 
 ![pipeline](./images/pipeline.png)
 
-## Installation
-
-1. Install PyTorch, [instructions](https://pytorch.org/get-started/locally/)
-
-2. Clone repository:
+## Installation (Linux)
+1. Clone repository:
 ```bash
-git clone git@github.com:viktorronnback/RAD.git realistic-anonymization
+git clone git@github.com:axteams-one/lkp-master-thesis-realistic-anonymization.git realistic-anonymization
 ```
 
-3. Go to the root directory of the repository:
+2. Go to the root directory of the repository:
 ```bash
 cd realistic-anonymization
 ```
 
-4. Install pip dependencies:
+3. Create conda environment from yml file:
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
+```
+
+4. Activate conda environment:
+```bash
+conda activate rad
+```
+
+5. Install Facebook's segmentation model SAM by downloading a checkpoint:
+```bash
+wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth -P anonymizer/models/
 ```
 
 ## Run anonymization
+Instructions for running a demo anonymization below.
 
-Demo anonymization:
+1. Go to anonymizer folder:
 ```bash
-python main.py config.yaml
+cd anonymizer
 ```
 
-Will automatically download models on the initial run (these can be large >10 GB)
+2. Run anonymization using demo configuration file:
+```bash
+python main.py demo.yaml
+```
 
-Demo images in anonymizer/input/demo/ are stock-photos from pexels.com.  
+3. The anonymized images can be found in: `output/demo/final`.
+
+This will automatically download models on the initial run (these can be large >10 GB).
+
+Demo images in anonymizer/input/demo/ are stock-photos from pexels.com. 
+
+## Configurations
+
+The anonymizer/template.config.yaml file provides a template for the supported configurations with corresponding default values. 
 
 ## Publication
 
 The tool was created as part of a master thesis in Computer Science at Linköping University.
 
-<!-- [Link to thesis](no-link-yet) - RAD: Realistic Anonymization of Images using Stable Diffusion -->
+[Link to thesis (added after publication)](no-link-yet) - RAD: Realistic Anonymization of Images using Stable Diffusion
