@@ -1,4 +1,4 @@
-# RAD: Realistic Anonymization of Images using Stable Diffusion
+# RAD: Realistic Anonymization of Images Using Stable Diffusion
 RAD is a full-body realistic anonymization pipeline based on Stable Diffusion. Below are a few anonymization examples displayed as GIFs, and a visualization of RAD's architecture. We refer to the published thesis for more examples and details about the pipeline.
 ![anonymization-1](./images/anonymization-1.gif)
 ![anonymization-2](./images/anonymization-2.gif)
