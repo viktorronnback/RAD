@@ -1,0 +1,33 @@
+# Demo2 anonymizer config file
+
+### General
+input: improvements
+output: improvements
+
+### Diffusion settings
+strength: 0.75
+controlnet_conditioning_scale: 0.9
+guidance_scale: 7.5
+
+inference_steps: 53
+
+# Prompts
+prompt: people, high quality, neutral lighting, hd, uhd, 4k, 8k, light
+negative_prompt: > 
+  (deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime), 
+  text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, 
+  mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, 
+  blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, 
+  malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, 
+  long neck, UnrealisticDream
+
+# Manual seed
+seed: 10
+
+### Controlnet settings
+controlnet: both
+canny_silhouette: true
+
+### Optimization settings
+cpu_offloading: 3
+compile_unet: false
