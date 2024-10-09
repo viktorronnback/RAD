@@ -62,4 +62,4 @@ The anonymizer/template.config.yaml file provides a template for the supported c
 
 The tool was originally created as part of a master thesis in Computer Science at Linköping University.
 
-[Link to thesis (added after publication)](no-link-yet) - RAD: Realistic Anonymization of Images using Stable Diffusion
+Link to thesis: [RAD: Realistic Anonymization of Images using Stable Diffusion](https://liu.diva-portal.org/smash/record.jsf?pid=diva2%3A1883351&dswid=7204)
